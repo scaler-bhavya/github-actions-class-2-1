@@ -1,0 +1,29 @@
+name: Python Matrix Strategy
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]  # Define the OS matrix
+        python-version: [3.9, 3.10, 3.11, 3.12]  # Define the Python version matrix
+
+    runs-on: ${{ matrix.os }}  # The job will run on the OS specified in the matrix
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}  # Dynamically use Python version from matrix
+
+      - name: Verify Python installation
+        run: |
+          python --version
+          pip --version
