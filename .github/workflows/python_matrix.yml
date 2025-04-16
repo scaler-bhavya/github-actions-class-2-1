@@ -7,21 +7,16 @@ on:
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]  # Define the OS matrix
-        python-version: [3.9, 3.10, 3.11, 3.12]  # Define the Python version matrix
-
-    runs-on: ${{ matrix.os }}  # The job will run on the OS specified in the matrix
+    runs-on: ubuntu-latest  # Define the runner for the build job
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
 
-      - name: Set up Python
+      - name: Set up Python 3.9
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}  # Dynamically use Python version from matrix
+          python-version: 3.9  # Install Python 3.9
 
       - name: Verify Python installation
         run: |
